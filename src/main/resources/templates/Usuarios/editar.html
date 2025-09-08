@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Editar Cliente | SoftRestaurante</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <!-- Contenedor principal -->
+    <div class="flex flex-col min-h-screen">
+      <!-- Encabezado -->
+      <header class="bg-white shadow px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+          <h1 class="text-3xl font-bold text-gray-800">✏️ Editar Cliente</h1>
+          <a
+            th:href="@{/usuarios/}"
+            class="text-sm text-[#2a9d8f] font-semibold hover:underline"
+          >
+            ← Volver a la lista de usuarios
+          </a>
+        </div>
+      </header>
+
+      <!-- Formulario -->
+      <main class="flex-grow px-6 py-8">
+        <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow space-y-6">
+          <!-- Párrafo explicativo -->
+          <p
+            class="text-sm text-gray-600 bg-blue-50 p-4 rounded-lg border border-blue-200"
+          >
+            ⚠️ <strong>Nota de seguridad:</strong> asegúrate de que los datos
+            del cliente sean correctos antes de guardar los cambios. Esta
+            información es usada para el acceso y contacto dentro del sistema.
+          </p>
+
+          <!-- FORMULARIO EDITAR -->
+          <form
+            th:action="@{/usuarios/actualizar/{id}(id=${usuario.idUsuario})}"
+            th:object="${usuario}"
+            method="post"
+            class="space-y-6 text-lg"
+          >
+            <!-- Usuario -->
+            <div>
+              <label
+                for="nombreUsuario"
+                class="block font-semibold text-gray-700 mb-1"
+                >👤 Usuario</label
+              >
+              <input
+                type="text"
+                th:field="*{nombreUsuario}"
+                placeholder="Nombre de usuario"
+                class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]"
+              />
+            </div>
+
+            <!-- Correo electrónico -->
+            <div>
+              <label
+                for="correoUsuario"
+                class="block font-semibold text-gray-700 mb-1"
+                >📧 Correo electrónico</label
+              >
+              <input
+                type="email"
+                th:field="*{correoUsuario}"
+                placeholder="correo@ejemplo.com"
+                class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]"
+              />
+            </div>
+
+            <!-- Teléfono -->
+            <div>
+              <label
+                for="telefonoUsuario"
+                class="block font-semibold text-gray-700 mb-1"
+                >📱 Teléfono</label
+              >
+              <input
+                type="text"
+                th:field="*{telefonoUsuario}"
+                placeholder="3001234567"
+                class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]"
+              />
+            </div>
+
+            <!-- Restaurante -->
+            <div>
+              <label
+                for="restaurante"
+                class="block font-semibold text-gray-700 mb-1"
+                >🍽️ Restaurante</label
+              >
+              <input
+                type="text"
+                th:field="*{restaurante}"
+                placeholder="Nombre de tu restaurante"
+                class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]"
+              />
+            </div>
+
+            <!-- Botón Modificar -->
+            <div>
+              <button
+                type="submit"
+                class="w-full bg-[#2a9d8f] hover:bg-[#21867a] text-white font-semibold py-3 rounded-lg transition text-lg"
+              >
+                💾 Guardar cambios
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+
+      <!-- Pie de página -->
+      <footer class="bg-white text-center py-4 text-gray-500 text-sm">
+        &copy; 2025 My Cab. Todos los derechos reservados.
+      </footer>
+    </div>
+  </body>
+</html>

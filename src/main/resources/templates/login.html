@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login | SoftRestaurante</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#264653] to-[#2a9d8f] flex items-center justify-center font-sans">
+
+  <div class="bg-white text-gray-800 rounded-3xl shadow-2xl w-[90vw] max-w-md p-8 max-h-[90vh] overflow-hidden flex flex-col justify-center">
+
+    <div class="text-center mb-6">
+      <i class="bi bi-cup-hot-fill text-4xl text-[#2a9d8f]"></i>
+      <h1 class="text-2xl font-bold text-[#264653] mt-2">SoftRestaurante</h1>
+    </div>
+
+    <div class="text-center text-sm text-gray-600 mb-6">
+      Accede a tu plataforma de gestión de ventas, pedidos e inventario. Un sistema moderno y fácil para tu restaurante.
+    </div>
+
+    <form method="post" th:action="@{/login/acceder}" class="space-y-4">
+      <div>
+        <label for="username" class="block text-sm font-semibold text-[#264653]">
+          <i class="bi bi-person-fill mr-1"></i>Usuario
+        </label>
+        <input type="text" id="nombre_usuario" name="usuario" required placeholder="Ej. chefjuan23"
+          class="w-full mt-1 bg-gray-100 border-2 border-gray-300 rounded-xl px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f]" />
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-semibold text-[#264653]">
+          <i class="bi bi-lock-fill mr-1"></i>Contraseña
+        </label>
+        <input type="password" id="psw_usuario" name="psw" required placeholder="********"
+          class="w-full mt-1 bg-gray-100 border-2 border-gray-300 rounded-xl px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f]" />
+      </div>
+
+      <button type="submit"
+        class="w-full bg-[#2a9d8f] hover:bg-[#21867a] text-white font-bold py-2 rounded-xl text-lg flex items-center justify-center gap-2">
+        <i class="bi bi-door-open-fill"></i> Ingresar
+      </button>
+    </form>
+
+    <div class="text-center text-sm text-gray-600 mt-6">
+      ¿Olvidaste tu contraseña?
+      <a href="#" class="text-[#2a9d8f] font-semibold hover:underline">Recupérala</a>
+    </div>
+        <div class="text-center text-sm text-gray-600 mt-6">
+      ¿No tienes cuenta?
+      <a th:href="@{/login/acceder}" class="text-[#2a9d8f] font-semibold hover:underline">Registrate</a>
+    </div>
+  </div>
+
+</body>
+</html>

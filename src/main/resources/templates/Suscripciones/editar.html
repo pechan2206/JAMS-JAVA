@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Editar Suscripción | SoftRestaurante</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <!-- Contenedor principal -->
+    <div class="flex flex-col min-h-screen">
+      <!-- Encabezado -->
+      <header class="bg-white shadow px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+          <h1 class="text-3xl font-bold text-gray-800">
+            📝 Editar Suscripción
+          </h1>
+          <a
+            th:href="@{/suscripciones}"
+            class="text-sm text-[#2a9d8f] font-semibold hover:underline"
+            >← Volver a suscripciones</a
+          >
+        </div>
+      </header>
+
+      <!-- Contenido principal -->
+      <main class="flex-grow px-6 py-8">
+        <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow space-y-6">
+          <!-- Párrafo explicativo -->
+          <p
+            class="text-sm text-gray-600 bg-blue-50 p-4 rounded-lg border border-blue-200"
+          >
+            📌 <strong>Recuerda:</strong> modifica los datos con cuidado. Esta
+            información será usada para gestionar el plan del cliente.
+          </p>
+
+          <form
+            th:action="@{/suscripciones/actualizar/{id}(id=${suscripcion.idSuscripcion})}"
+            th:object="${suscripcion}"
+            method="post"
+            class="space-y-6 text-lg"
+          >
+            <!-- Descripción -->
+            <div>
+              <label
+                for="descripcion"
+                class="block font-semibold text-gray-700 mb-1"
+                >📃 Descripción</label
+              >
+              <input
+                type="text"
+                id="descripcion"
+                name="descripcion"
+                th:field="*{descripcion}"
+                placeholder="Descripción de la suscripción"
+                class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]"
+              />
+            </div>
+
+            <!-- Precio -->
+            <div>
+              <label for="precio" class="block font-semibold text-gray-700 mb-1"
+                >💰 Precio</label
+              >
+              <input
+                type="text"
+                id="precio"
+                name="precio"
+                th:field="*{precio}"
+                :
+                placeholder="Precio mensual"
+                class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]"
+              />
+            </div>
+
+            <!-- Botón Modificar -->
+            <div>
+              <button
+                type="submit"
+                class="w-full bg-[#2a9d8f] hover:bg-[#21867a] text-white font-semibold py-3 rounded-lg transition text-lg"
+              >
+                💾 Guardar cambios
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+
+      <!-- Pie de página -->
+      <footer class="bg-white text-center py-4 text-gray-500 text-sm">
+        &copy; 2025 SoftRestaurante. Todos los derechos reservados.
+      </footer>
+    </div>
+  </body>
+</html>
