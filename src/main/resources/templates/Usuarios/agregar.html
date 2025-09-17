@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro | SoftRestaurante</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+  <!-- Contenedor principal -->
+  <div class="flex flex-col min-h-screen">
+
+    <!-- Encabezado -->
+    <header class="bg-white shadow px-6 py-4">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-gray-800">📝 Registro de Nuevo Usuario</h1>
+        <a th:href="@{'/login'}" class="text-sm text-[#2a9d8f] font-semibold hover:underline">¿Ya tienes cuenta? Inicia sesión</a>
+      </div>
+    </header>
+
+    <!-- Formulario -->
+    <main class="flex-grow px-6 py-8">
+    
+      <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow space-y-6">
+
+        <!-- Párrafo explicativo -->
+        <p class="text-sm text-gray-600 bg-blue-50 p-4 rounded-lg border border-blue-200">
+          🔒 <strong>Importante:</strong> Asegúrate de ingresar información válida y segura. Tu cuenta será usada para gestionar tus pedidos y acceso al sistema.
+        </p>
+
+        <form method="post" th:action="@{'/usuarios/guardar'}" class="space-y-6 text-lg">
+
+          <!-- Nombre usuario -->
+          <div>
+            <label for="nombre_usuario" class="block font-semibold text-gray-700 mb-1">👤 Nombre de usuario</label>
+            <input type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Ej. Juan Pérez"
+              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]">
+          </div>
+
+          <!-- Teléfono -->
+          <div>
+            <label for="telefono_usuario" class="block font-semibold text-gray-700 mb-1">📱 Teléfono</label>
+            <input type="text" id="telefono_usuario" name="telefono_usuario" placeholder="Ej. 3001234567"
+              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]">
+          </div>
+
+          <!-- Correo electrónico -->
+          <div>
+            <label for="correo_usuario" class="block font-semibold text-gray-700 mb-1">📧 Correo electrónico</label>
+            <input type="text" id="correo_usuario" name="correo_usuario"  placeholder="Ej. correo@ejemplo.com"
+              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]">
+          </div>
+
+          <!-- Contraseña -->
+          <div>
+            <label for="psw_usuario" class="block font-semibold text-gray-700 mb-1">🔑 Contraseña</label>
+            <input type="password" id="psw_usuario" name="psw_usuario" placeholder="********"
+              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]">
+          </div>
+
+          <!-- Botón enviar -->
+          <div>
+            <button type="submit"
+              class="w-full bg-[#2a9d8f] hover:bg-[#21867a] text-white font-semibold py-3 rounded-lg transition text-lg">
+              ➕ Crear cuenta
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-white text-center py-4 text-gray-500 text-sm">
+      &copy; 2025 My Cab. Todos los derechos reservados.
+    </footer>
+
+  </div>
+</body>
+</html>

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import com.example.web.jams.modelos.SolicitudMensajeModelo;
 import com.example.web.jams.modelos.SuscripcionModelo;
 import com.example.web.jams.modelos.UsuarioModelo;
@@ -14,8 +13,6 @@ import com.example.web.jams.servicios.SolicitudMensajeServicio;
 import com.example.web.jams.servicios.SuscripcionServicio;
 import com.example.web.jams.servicios.UsuarioServicio;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeControlador {
@@ -60,8 +57,9 @@ public class HomeControlador {
 
             solicitudMensajeServicio.guardarMensaje(solicitud);
         }
-
         return "redirect:/"; // vuelve al home
     }
+
+
 
 }

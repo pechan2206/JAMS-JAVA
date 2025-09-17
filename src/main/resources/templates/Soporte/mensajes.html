@@ -1,0 +1,77 @@
+<!-- Incluye Tailwind y Heroicons si no los tienes -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<main class="flex-grow px-4 py-10 bg-gray-100 min-h-screen">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Encabezado -->
+    <div class="mb-8">
+      <h2 class="text-3xl font-extrabold text-gray-800">📨 Mensajes Recibidos</h2>
+      <p class="text-gray-500">Revisa aquí los mensajes enviados por los usuarios.</p>
+    </div>
+
+    <!-- Botones de navegación -->
+    <div class="flex gap-4 mb-6">
+      <button onclick="mostrar('pendientes')" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded shadow">Pendientes</button>
+      <button onclick="mostrar('validados')" class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded shadow">Validados</button>
+    </div>
+
+    <!-- Tabla -->
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gradient-to-r from-blue-700 to-blue-500 text-white">
+          <tr>
+            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">ID Solicitud</th>
+            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">Nombre</th>
+            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">Correo</th>
+            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">Mensaje</th>
+            <th class="px-6 py-4 text-center text-sm font-semibold uppercase tracking-wider">Acción</th>
+          </tr>
+        </thead>
+
+        <!-- MENSAJES PENDIENTES -->
+        <tbody id="pendientes" class="bg-white divide-y divide-gray-100 text-gray-700 text-sm">
+          <tr th:each="mensaje : ${mensajes}" 
+              th:if="${mensaje.estado} != 'validado'"
+              class="hover:bg-blue-50 transition duration-200 ease-in-out">
+
+            <td class="px-6 py-4 font-semibold text-blue-600" th:text="${mensaje.idSolicitud}"></td>
+            <td class="px-6 py-4" th:text="${mensaje.nombre}"></td>
+            <td class="px-6 py-4" th:text="${mensaje.correo}"></td>
+            <td class="px-6 py-4 whitespace-pre-line" th:text="${mensaje.mensaje}"></td>
+            <td class="px-4 py-2 text-center">
+              <a th:href="@{/mensajes/validar/{id}(id=${mensaje.idSolicitud})}"
+                 onclick="return confirm('¿Validación de mensaje confirmada?')"
+                 class="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded shadow text-xs">
+                ✅ Validar
+              </a>
+            </td>
+          </tr>
+        </tbody>
+
+        <!-- MENSAJES VALIDADOS -->
+        <tbody id="validados" class="hidden bg-white divide-y divide-gray-100 text-gray-700 text-sm">
+          <tr th:each="mensaje : ${mensajes}" 
+              th:if="${mensaje.estado} == 'validado'"
+              class="hover:bg-green-50 transition duration-200 ease-in-out">
+
+            <td class="px-6 py-4 font-semibold text-green-600" th:text="${mensaje.idSolicitud}"></td>
+            <td class="px-6 py-4" th:text="${mensaje.nombre}"></td>
+            <td class="px-6 py-4" th:text="${mensaje.correo}"></td>
+            <td class="px-6 py-4 whitespace-pre-line" th:text="${mensaje.mensaje}"></td>
+            <td class="px-4 py-2 text-center text-gray-400 italic">✔ Validado</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<!-- Script para mostrar/ocultar secciones -->
+<script>
+  function mostrar(tabla) {
+    document.getElementById('pendientes').classList.add('hidden');
+    document.getElementById('validados').classList.add('hidden');
+    document.getElementById(tabla).classList.remove('hidden');
+  }
+</script>

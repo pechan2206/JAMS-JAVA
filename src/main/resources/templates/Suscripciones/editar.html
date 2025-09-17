@@ -34,6 +34,7 @@
             información será usada para gestionar el plan del cliente.
           </p>
 
+          <!-- Formulario de edición -->
           <form
             th:action="@{/suscripciones/actualizar/{id}(id=${suscripcion.idSuscripcion})}"
             th:object="${suscripcion}"
@@ -50,7 +51,6 @@
               <input
                 type="text"
                 id="descripcion"
-                name="descripcion"
                 th:field="*{descripcion}"
                 placeholder="Descripción de la suscripción"
                 class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]"
@@ -65,9 +65,7 @@
               <input
                 type="text"
                 id="precio"
-                name="precio"
                 th:field="*{precio}"
-                :
                 placeholder="Precio mensual"
                 class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]"
               />

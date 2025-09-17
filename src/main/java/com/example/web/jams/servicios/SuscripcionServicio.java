@@ -1,5 +1,7 @@
 package com.example.web.jams.servicios;
 
+import com.example.web.jams.dto.RecaudoPorPlanDTO;
+import com.example.web.jams.dto.UsuariosPorPlanDTO;
 import com.example.web.jams.modelos.SuscripcionModelo;
 import com.example.web.jams.repositorios.SuscripcionRepositorio;
 import jakarta.transaction.Transactional;
@@ -37,8 +39,21 @@ public class SuscripcionServicio {
         return suscripcionRepositorio.save(existente);
     }
 
-    public SuscripcionModelo guardar(SuscripcionModelo datos){
+    public SuscripcionModelo guardar(SuscripcionModelo datos) {
         return suscripcionRepositorio.save(datos);
-        
     }
+
+    public List<UsuariosPorPlanDTO> obtenerUsuariosPorPlan() {
+        return suscripcionRepositorio.contarUsuariosPorPlan();
+    }
+
+    public List<RecaudoPorPlanDTO> obtenerRecaudoPorPlan() {
+        return suscripcionRepositorio.recaudoPorPlan();
+    }
+
+    public List<String> descripcionPlanes() {
+        return suscripcionRepositorio.findAllDescripciones();
+    }
+
+
 }

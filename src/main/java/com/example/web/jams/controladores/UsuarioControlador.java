@@ -13,6 +13,8 @@ import com.example.web.jams.modelos.RolModelo;
 import com.example.web.jams.modelos.UsuarioModelo;
 import com.example.web.jams.servicios.UsuarioServicio;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/usuarios")
@@ -65,5 +67,11 @@ public class UsuarioControlador {
         usuarioServicio.eliminar(id);
         return "redirect:/usuarios";
     }
+
+    @GetMapping("/agregar")
+    public String agregarUsuario() {
+        return VIEW_PATH + "agregar";
+    }
+    
 
 }

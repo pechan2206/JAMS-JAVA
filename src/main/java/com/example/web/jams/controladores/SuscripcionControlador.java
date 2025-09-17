@@ -5,15 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.example.web.jams.modelos.SuscripcionModelo;
 import com.example.web.jams.servicios.SuscripcionServicio;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 @RequestMapping("/suscripciones")
@@ -47,9 +46,21 @@ public class SuscripcionControlador {
     }
 
     @PostMapping("/actualizar/{id}")
-    public String guardar(@ModelAttribute SuscripcionModelo datos){
-        suscripcionServicio.guardar(datos);
-        return "redirect:/sucripciones";
+    public String actualizar(@PathVariable("id") Long id,@ModelAttribute SuscripcionModelo datos){
+        suscripcionServicio.actualizar(id,datos);
+        return "redirect:/suscripciones";
     }
+
+    @GetMapping("/formulario")
+    public String formularioSuscripcion(){
+        return VIEW_PATH + "formulario";
+    }
+
+    @PostMapping("/guardarSuscripcion")
+    public String guardar(@ModelAttribute SuscripcionModelo suscripcionNueva) {
+        suscripcionServicio.guardar(suscripcionNueva);
+        return "redirect:/suscripciones";
+    }
+    
 
 }

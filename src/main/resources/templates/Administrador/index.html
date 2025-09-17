@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Administración</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://unpkg.com/@heroicons/vue@2.0.16/24/outline/index.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-gray-100 font-sans">
+    <!-- Contenedor principal -->
+    <main class="min-h-screen p-6">
+      <!-- Header -->
+      <header class="flex justify-between items-center mb-10">
+        <h1 class="text-3xl font-bold text-gray-800">
+          Panel de Administración
+        </h1>
+        <form th:action="@{'/salir'}" method="get">
+          <button
+            type="submit"
+            class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg shadow transition"
+          >
+            Cerrar Sesión
+          </button>
+        </form>
+      </header>
+
+      <!-- Sección: Gestión de Usuarios -->
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">
+          👥 Gestión de Usuarios
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a
+            th:href="@{'/usuarios'}"
+            class="p-5 bg-white rounded-lg shadow hover:shadow-lg transition block"
+          >
+            <div class="flex items-center space-x-4">
+              <div class="text-3xl">👤</div>
+              <div>
+                <p class="text-lg font-semibold text-gray-900">Usuarios</p>
+                <p class="text-sm text-gray-600">Ver todos los usuarios</p>
+              </div>
+            </div>
+          </a>
+          <a
+            th:href="@{'/usuarios/agregar'}"
+            class="p-5 bg-white rounded-lg shadow hover:shadow-lg transition block"
+          >
+            <div class="flex items-center space-x-4">
+              <div class="text-3xl">👥</div>
+              <div>
+                <p class="text-lg font-semibold text-gray-900">
+                  Agregar Usuario
+                </p>
+                <p class="text-sm text-gray-600">Registrar nuevo usuario</p>
+              </div>
+            </div>
+          </a>
+          <a
+            th:href="@{'/suscripciones'}"
+            class="p-5 bg-white rounded-lg shadow hover:shadow-lg transition block"
+          >
+            <div class="flex items-center space-x-4">
+              <div class="text-3xl">📊</div>
+              <div>
+                <p class="text-lg font-semibold text-gray-900">Suscripciones</p>
+                <p class="text-sm text-gray-600">Administrar Suscripciones</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Sección: Gestión del Sistema -->
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">
+          ⚙️ Gestión del Sistema
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a
+            class="p-5 bg-gray-100 rounded-lg shadow cursor-not-allowed pointer-events-none opacity-60 block"
+          >
+            <div class="flex items-center space-x-4">
+              <div class="text-3xl">⚙️</div>
+              <div>
+                <p class="text-lg font-semibold text-gray-400">Configuración</p>
+                <p class="text-sm text-gray-400">Parámetros del sistema</p>
+              </div>
+            </div>
+          </a>
+
+          <a
+            class="p-5 bg-gray-100 rounded-lg shadow cursor-not-allowed pointer-events-none opacity-60 block"
+          >
+            <div class="flex items-center space-x-4">
+              <div class="text-3xl">🔐</div>
+              <div>
+                <p class="text-lg font-semibold text-gray-400">Seguridad</p>
+                <p class="text-sm text-gray-400">Logs de actividad</p>
+              </div>
+            </div>
+          </a>
+
+          <a
+            th:href="@{/mensajes}"
+            class="p-5 bg-white rounded-lg shadow hover:shadow-lg transition block"
+          >
+            <div class="flex items-center space-x-4">
+              <div class="text-3xl">📱</div>
+              <div>
+                <p class="text-lg font-semibold text-gray-900">Mensajes</p>
+                <p class="text-sm text-gray-600">Mensajes de usuarios</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Sección: Recursos y Soporte -->
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">
+          📦 Recursos y Soporte
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a
+            th:href="@{/pqr}"
+            class="p-5 bg-white rounded-lg shadow hover:shadow-lg transition block"
+          >
+            <div class="flex items-center space-x-4">
+              <div class="text-3xl">💾</div>
+              <div>
+                <p class="text-lg font-semibold text-gray-900">PQR</p>
+                <p class="text-sm text-gray-600">Gestion de PQR</p>
+              </div>
+            </div>
+          </a>
+          <a
+            class="p-5 bg-gray-100 rounded-lg shadow cursor-not-allowed pointer-events-none opacity-60 block"
+          >
+            <div class="flex items-center space-x-4">
+              <div class="text-3xl">💳</div>
+              <div>
+                <p class="text-lg font-semibold text-gray-400">Facturación</p>
+                <p class="text-sm text-gray-400">Suscripciones y pagos</p>
+              </div>
+            </div>
+          </a>
+
+          <a
+            class="p-5 bg-gray-100 rounded-lg shadow cursor-not-allowed pointer-events-none opacity-60 block"
+          >
+            <div class="flex items-center space-x-4">
+              <div class="text-3xl">🛠️</div>
+              <div>
+                <p class="text-lg font-semibold text-gray-400">Soporte</p>
+                <p class="text-sm text-gray-400">Centro de ayuda</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Estadísticas de Planes Extendidas -->
+      <section class="mb-20 px-4 md:px-10">
+        <h2 class="text-4xl font-extrabold text-gray-900 mb-10">
+          📈 Estadísticas de Suscripciones
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <!-- Plan Básico -->
+          <div
+            class="bg-white border-t-8 border-green-500 rounded-2xl shadow-xl p-8 space-y-6"
+          >
+            <div class="flex items-center space-x-4">
+              <div class="text-4xl text-green-500">🟢</div>
+              <div>
+                <h3
+                  class="text-2xl font-bold text-green-600"
+                  th:text="${descripciones[0]}"
+                ></h3>
+                <p class="text-gray-600 text-sm mt-1">
+                  Ideal para negocios pequeños que están iniciando con un solo
+                  usuario y funcionalidades básicas.
+                </p>
+              </div>
+            </div>
+            <div class="text-gray-800 space-y-2 text-base">
+              <p>
+                <strong
+                  th:text="'👥 Clientes suscritos: ' + ${usuarios[0].totalUsuarios}"
+                >
+                </strong>
+              </p>
+              <p>
+                <strong
+                  th:text="'💰 Total recaudado: $' + ${#numbers.formatDecimal(recaudo[0].totalRecaudo, 0, 'COMMA', 0, 'POINT')}"
+                ></strong>
+              </p>
+            </div>
+          </div>
+
+          <!-- Plan Profesional -->
+          <div
+            class="bg-white border-t-8 border-blue-500 rounded-2xl shadow-xl p-8 space-y-6"
+          >
+            <div class="flex items-center space-x-4">
+              <div class="text-4xl text-blue-500">🔵</div>
+              <div>
+                <h3
+                  class="text-2xl font-bold text-blue-600"
+                  th:text="${descripciones[1]}"
+                ></h3>
+                <p class="text-gray-600 text-sm mt-1">
+                  Pensado para equipos de trabajo con hasta 5 usuarios y
+                  funcionalidades avanzadas.
+                </p>
+              </div>
+            </div>
+            <div class="text-gray-800 space-y-2 text-base">
+              <p>
+                <strong
+                  th:text="'👥 Clientes suscritos: ' + ${usuarios[1].totalUsuarios}"
+                ></strong>
+              </p>
+              <p>
+                <strong
+                  th:text="'💰 Total recaudado: $' + ${#numbers.formatDecimal(recaudo[1].totalRecaudo, 0, 'COMMA', 0, 'POINT')}"
+                ></strong>
+              </p>
+            </div>
+          </div>
+
+          <!-- Plan Premium -->
+          <div
+            class="bg-gray-900 border-t-8 border-yellow-400 rounded-2xl shadow-xl p-8 space-y-6 text-white"
+          >
+            <div class="flex items-center space-x-4">
+              <div class="text-4xl text-yellow-400">⭐</div>
+              <div>
+                <h3
+                  class="text-2xl font-bold text-yellow-400"
+                  th:text="${descripciones[2]}"
+                ></h3>
+                <p class="text-gray-300 text-sm mt-1">
+                  Para empresas que necesitan todo el poder de la plataforma:
+                  reservas, integración con POS, y soporte 24/7.
+                </p>
+              </div>
+            </div>
+            <div class="space-y-2 text-base">
+              <p>
+                <strong
+                  th:text="'👥 Clientes suscritos: ' + ${usuarios[2].totalUsuarios}"
+                ></strong>
+              </p>
+              <p>
+                <strong
+                  th:text="'💰 Total recaudado: $' + ${#numbers.formatDecimal(recaudo[1].totalRecaudo, 0, 'COMMA', 0, 'POINT')}"
+                ></strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-white border-t mt-8 py-4 text-center text-sm text-gray-600"
+    >
+      ©
+      2025
+      JamsSolutions. Todos los derechos reservados.
+    </footer>
+  </body>
+</html>
