@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel del Usuario</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+  <div class="flex min-h-screen">
+    <!-- Barra lateral -->
+    <aside class="w-64 bg-white shadow-md p-4 flex flex-col justify-between fixed h-full">
+      <div>
+        <div class="flex items-center space-x-2 text-2xl font-bold text-blue-600">
+          <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 0L20 10L10 20L0 10Z" />
+          </svg>
+          <span>ROS Web</span>
+        </div>
+        <nav class="mt-10 space-y-3">
+          <button onclick="mostrarSeccion('inicio')" class="w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Inicio</button>
+          <button onclick="mostrarSeccion('plan')" class="w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Administrar Plan</button>
+          <button onclick="mostrarSeccion('pqr')" class="w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">PQR</button>
+          <button onclick="mostrarSeccion('informes')" class="w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Generar Informes</button>
+        </nav>
+      </div>
+      <div class="mt-10">
+        <a th:href="@{/salir}" class="flex items-center gap-2 w-full px-3 py-2 text-red-600 hover:bg-gray-100 rounded">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1" />
+          </svg>
+          Cerrar Sesión
+        </a>
+      </div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <div class="flex-1 p-6 space-y-6 ml-64">
+      <h1 class="text-2xl font-bold text-gray-800">Bienvenido, <span th:text="${usuario}"></span></h1>
+
+      <!-- INICIO -->
+      <div id="inicio" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white p-6 rounded shadow">
+            <h3 class="text-lg font-semibold">Valor de Ventas</h3>
+            <p class="text-3xl font-bold">$1,020</p>
+            <p class="text-sm">+8% este mes</p>
+          </div>
+          <div class="bg-gradient-to-r from-indigo-500 to-indigo-700 text-white p-6 rounded shadow">
+            <h3 class="text-lg font-semibold">Facturas Emitidas</h3>
+            <p class="text-3xl font-bold">12</p>
+            <p class="text-sm">+2 desde mayo</p>
+          </div>
+          <div class="bg-gradient-to-r from-teal-500 to-teal-700 text-white p-6 rounded shadow">
+            <h3 class="text-lg font-semibold">Clientes Atendidos</h3>
+            <p class="text-3xl font-bold">18</p>
+            <p class="text-sm">+5 este mes</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADMINISTRAR PLAN -->
+      <div id="plan" class="hidden bg-white p-6 rounded shadow">
+        <h2 class="text-xl font-bold mb-4 text-blue-800">📋 Mis Suscripciones</h2>
+
+        <div th:if="${#lists.isEmpty(suscripciones)}">
+          <div class="bg-yellow-100 text-yellow-800 px-4 py-3 rounded border border-yellow-300 mb-4">
+            No tienes suscripciones activas actualmente. Elige un plan para continuar:
+          </div>
+
+          <div th:if="${!#lists.isEmpty(planes)}" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div th:each="plan : ${planes}" class="bg-white shadow-md rounded-lg p-5 border border-gray-200">
+              <h3 class="text-xl font-semibold text-blue-700 mb-2" th:text="${plan.descripcion}"></h3>
+              <p class="text-gray-700 mb-1"><strong>Precio:</strong> $<span th:text="${#numbers.formatInteger(plan.precio,0,'POINT')}"></span></p>
+
+              <form th:action="@{/cliente/suscribirse/{id}(id=${plan.idSuscripcion})}" method="post">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Suscribirme</button>
+              </form>
+            </div>
+          </div>
+
+          <div th:if="${#lists.isEmpty(planes)}" class="text-gray-600">No hay planes disponibles por el momento.</div>
+        </div>
+
+        <div th:unless="${#lists.isEmpty(suscripciones)}" class="overflow-x-auto">
+          <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow">
+            <thead class="bg-blue-600 text-white">
+              <tr>
+                <th class="text-left px-4 py-2">Descripción</th>
+                <th class="text-left px-4 py-2">Precio</th>
+                <th class="text-left px-4 py-2">Fecha de Compra</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="s : ${suscripciones}" class="hover:bg-gray-50">
+                <td class="px-4 py-2 border-b" th:text="${s.descripcion}"></td>
+                <td class="px-4 py-2 border-b">$<span th:text="${#numbers.formatInteger(s.precio,0,'POINT')}"></span></td>
+                <td class="px-4 py-2 border-b" th:text="${#temporals.format(s.fechaCompra, 'dd/MM/yyyy')}"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PQR -->
+      <div id="pqr" class="hidden bg-white p-6 rounded shadow">
+        <h2 class="text-lg font-semibold mb-2">Peticiones, Quejas y Reclamos</h2>
+        <p class="text-gray-600 mb-4">Tu opinión es muy importante para mejorar nuestros servicios.</p>
+        <form class="space-y-4" method="post" th:action="@{/enviarPqr}">
+          <input type="text" placeholder="Asunto" name="asunto" class="w-full p-2 border border-gray-300 rounded">
+          <textarea placeholder="Escribe tu mensaje..." name="mensaje" class="w-full p-2 border border-gray-300 rounded" rows="4"></textarea>
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Enviar</button>
+        </form>
+      </div>
+
+      <!-- INFORMES -->
+      <div id="informes" class="hidden bg-white p-6 rounded shadow">
+        <h2 class="text-lg font-semibold mb-4">Generar Informes</h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-gray-50 p-4 rounded shadow text-center">
+            <h3 class="font-semibold mb-2">Informe de Ventas</h3>
+            <button class="text-blue-600 underline">Descargar PDF</button>
+          </div>
+          <div class="bg-gray-50 p-4 rounded shadow text-center">
+            <h3 class="font-semibold mb-2">Informe de Pagos</h3>
+            <button class="text-blue-600 underline">Descargar PDF</button>
+          </div>
+          <div class="bg-gray-50 p-4 rounded shadow text-center">
+            <h3 class="font-semibold mb-2">Informe de Clientes</h3>
+            <button class="text-blue-600 underline">Descargar PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script navegación -->
+  <script>
+    const secciones = ['inicio', 'plan', 'pqr', 'informes'];
+    function mostrarSeccion(id) {
+      secciones.forEach(sec => {
+        document.getElementById(sec).classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

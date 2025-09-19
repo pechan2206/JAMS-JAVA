@@ -1,5 +1,6 @@
 package com.example.web.jams.servicios;
 
+import com.example.web.jams.modelos.PqrModelo;
 import com.example.web.jams.modelos.SolicitudMensajeModelo;
 import com.example.web.jams.repositorios.SolicitudMensajeRepositorio;
 
@@ -15,12 +16,19 @@ public class SolicitudMensajeServicio {
         this.solicitudMensajeRepositorio = solicitudMensajeRepositorio;
     }
 
-    public SolicitudMensajeModelo guardarMensaje(SolicitudMensajeModelo mensaje){
+    public SolicitudMensajeModelo guardarMensaje(SolicitudMensajeModelo mensaje) {
         return solicitudMensajeRepositorio.save(mensaje);
     }
 
-    public List<SolicitudMensajeModelo> listasMensajes(){
+    public List<SolicitudMensajeModelo> listasMensajes() {
         return solicitudMensajeRepositorio.findAll();
+    }
+
+    public SolicitudMensajeModelo actualizarEstado(Long id) {
+        SolicitudMensajeModelo validar = solicitudMensajeRepositorio.findById(id)
+                .orElseThrow(() -> new RuntimeException("Mensaje no encontrado"));
+        validar.setEstado("validado");
+        return solicitudMensajeRepositorio.save(validar);
     }
 
 }

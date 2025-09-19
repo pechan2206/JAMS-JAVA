@@ -17,7 +17,7 @@ public class PqrModelo {
     private Long idPqr;
 
     @Column(name = "id_usuario")
-    private Long idUsuario;
+    private String idUsuario;
 
     @Column(name = "mensaje", nullable = false, length = 200)
     private String mensaje;

@@ -39,11 +39,11 @@
                     <tr th:each="solicitud : ${pqr}" th:if="${solicitud.estado} != 'validado'"
                         class="hover:bg-blue-50 transition duration-200 ease-in-out">
                         <td class="px-6 py-4 font-semibold text-blue-600" th:text="${solicitud.idPqr}"></td>
-                        <td class="px-6 py-4" th:text="${solicitud.usuarioId}"></td>
+                        <td class="px-6 py-4" th:text="${solicitud.idUsuario}"></td>
                         <td class="px-6 py-4" th:text="${solicitud.asunto}"></td>
                         <td class="px-6 py-4 whitespace-pre-line" th:text="${solicitud.mensaje}"></td>
                         <td class="px-6 py-4 text-center">
-                            <a th:href="@{/pqr/validarPqr/{id}(id=${solicitud.idPqr})}"
+                            <a th:href="@{/soporte/validarPqr/{id}(id=${solicitud.idPqr})}"
                                onclick="return confirm('¿Validación de PQR confirmada?')"
                                class="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded shadow text-xs">
                                 ✅ Validar
@@ -57,7 +57,7 @@
                     <tr th:each="solicitud : ${pqr}" th:if="${solicitud.estado} == 'validado'"
                         class="hover:bg-green-50 transition duration-200 ease-in-out">
                         <td class="px-6 py-4 font-semibold text-green-600" th:text="${solicitud.idPqr}"></td>
-                        <td class="px-6 py-4" th:text="${solicitud.usuarioId}"></td>
+                        <td class="px-6 py-4" th:text="${solicitud.idUsuario}"></td>
                         <td class="px-6 py-4" th:text="${solicitud.asunto}"></td>
                         <td class="px-6 py-4 whitespace-pre-line" th:text="${solicitud.mensaje}"></td>
                         <td class="px-6 py-4 text-center text-gray-400 italic">✔ Validado</td>
