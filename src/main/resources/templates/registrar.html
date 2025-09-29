@@ -1,73 +1,157 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Registro | SoftRestaurante</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Registro | SoftRestaurante</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  <body
+    class="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#2a9d8f] to-[#264653] font-sans flex items-center justify-center"
+  >
+    <div
+      class="bg-white text-gray-800 rounded-3xl shadow-2xl border border-gray-300 w-[95vw] max-w-md p-6 max-h-[95vh] flex flex-col justify-between"
+    >
+      <div class="text-center mb-4">
+        <i class="bi bi-person-plus-fill text-3xl text-[#2a9d8f]"></i>
+        <h1 class="text-xl font-bold text-[#003049] mt-1">Registro</h1>
+      </div>
 
-<body class="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#2a9d8f] to-[#264653] font-sans flex items-center justify-center">
- 
+      <form
+        method="post"
+        th:action="@{'/registro/guardar'}"
+        th:object="${usuario}"
+        class="flex-grow space-y-4"
+      >
+        <!-- Nombre usuario -->
+        <div>
+          <label
+            for="nombreUsuario"
+            class="block text-sm font-semibold text-[#003049] mb-1"
+            >Nombre usuario</label
+          >
+          <input
+            type="text"
+            id="nombreUsuario"
+            th:field="*{nombreUsuario}"
+            placeholder="Ej. Juan Pérez"
+            class="w-full bg-gray-100 border-2 border-[#2a9d8f] rounded-lg px-3 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f]"
+            required
+          />
+          <p
+            th:if="${#fields.hasErrors('nombreUsuario')}"
+            th:errors="*{nombreUsuario}"
+            class="text-red-600 text-sm mt-1"
+          ></p>
+        </div>
 
-  <div class="bg-white text-gray-800 rounded-3xl shadow-2xl border border-gray-300 w-[95vw] max-w-md p-6 max-h-[95vh] flex flex-col justify-between">
-    <div class="text-center mb-4">
-      <i class="bi bi-person-plus-fill text-3xl text-[#2a9d8f]"></i>
-      <h1 class="text-xl font-bold text-[#003049] mt-1">Registro</h1>
+        <!-- Teléfono -->
+        <div>
+          <label
+            for="telefonoUsuario"
+            class="block text-sm font-semibold text-[#003049] mb-1"
+            >Teléfono</label
+          >
+          <input
+            type="text"
+            id="telefonoUsuario"
+            th:field="*{telefonoUsuario}"
+            placeholder="Ej. 3001234567"
+            class="w-full bg-gray-100 border-2 border-[#2a9d8f] rounded-lg px-3 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f]"
+            required
+          />
+          <p
+            th:if="${#fields.hasErrors('telefonoUsuario')}"
+            th:errors="*{telefonoUsuario}"
+            class="text-red-600 text-sm mt-1"
+          ></p>
+        </div>
+
+        <!-- Correo electrónico -->
+        <div>
+          <label
+            for="correoUsuario"
+            class="block text-sm font-semibold text-[#003049] mb-1"
+            >Correo electrónico</label
+          >
+          <input
+            type="email"
+            id="correoUsuario"
+            th:field="*{correoUsuario}"
+            placeholder="Ej. correo@ejemplo.com"
+            class="w-full bg-gray-100 border-2 border-[#2a9d8f] rounded-lg px-3 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f]"
+            required
+          />
+          <p
+            th:if="${#fields.hasErrors('correoUsuario')}"
+            th:errors="*{correoUsuario}"
+            class="text-red-600 text-sm mt-1"
+          ></p>
+        </div>
+
+        <!-- Contraseña -->
+        <div>
+          <label
+            for="pswUsuario"
+            class="block text-sm font-semibold text-[#003049] mb-1"
+            >Contraseña</label
+          >
+          <input
+            type="password"
+            id="pswUsuario"
+            name="pswUsuario"
+            th:field="*{pswUsuario}"
+            placeholder="********"
+            minlength="4"
+            required
+            class="w-full bg-gray-100 border-2 border-[#2a9d8f] rounded-lg px-3 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f]"
+          />
+          <p
+            th:if="${#fields.hasErrors('pswUsuario')}"
+            th:errors="*{pswUsuario}"
+            class="text-red-600 text-sm mt-1"
+          ></p>
+        </div>
+
+        <!-- Restaurante (opcional) -->
+        <div>
+          <label
+            for="restaurante"
+            class="block text-sm font-semibold text-[#003049] mb-1"
+            >Restaurante</label
+          >
+          <input
+            type="text"
+            id="restaurante"
+            th:field="*{restaurante}"
+            placeholder="Ej. Juancho paisa"
+            class="w-full bg-gray-100 border-2 border-[#2a9d8f] rounded-lg px-3 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f]"
+          />
+          <p
+            th:if="${#fields.hasErrors('restaurante')}"
+            th:errors="*{restaurante}"
+            class="text-red-600 text-sm mt-1"
+          ></p>
+        </div>
+
+        <!-- Botón enviar -->
+        <button
+          type="submit"
+          class="w-full bg-[#2a9d8f] hover:bg-[#21867a] text-white font-semibold text-sm py-2 rounded-lg flex items-center justify-center gap-2"
+        >
+          <i class="bi bi-person-plus-fill"></i> Registrarse
+        </button>
+      </form>
+
+      <div class="text-center text-sm text-gray-600 mt-4">
+        ¿Ya tienes una cuenta?
+        <a
+          th:href="@{/login}"
+          class="text-[#2a9d8f] font-semibold hover:underline"
+          >Inicia sesión</a
+        >
+      </div>
     </div>
-
-    <form method="post" th:action="('/usuarios/guardarUsuario')" class="flex-grow space-y-4">
-      <!-- Nombre usuario -->
-      <div>
-        <label for="nombre_usuario" class="block text-sm font-semibold text-[#003049] mb-1">Nombre usuario</label>
-        <input type="text" id="nombre_usuario" name="nombre_usuario"
-          placeholder="Ej. Juan Pérez" required class="w-full bg-gray-100 border-2 border-[#2a9d8f] rounded-lg px-3 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f]">
-      </div>
-
-      <!-- Teléfono -->
-      <div>
-        <label for="telefono_usuario" class="block text-sm font-semibold text-[#003049] mb-1">Teléfono</label>
-        <input type="text" required id="telefono_usuario" name="telefono_usuario"
-          placeholder="Ej. 3001234567"
-          class="w-full bg-gray-100 border-2 border-[#2a9d8f] rounded-lg px-3 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f]">
-      </div>
-
-      <!-- Correo electrónico -->
-      <div>
-        <label for="correo_usuario" class="block text-sm font-semibold text-[#003049] mb-1">Correo electrónico</label>
-        <input type="text" required id="correo_usuario" name="correo_usuario"  placeholder="Ej. correo@ejemplo.com"
-          class="w-full bg-gray-100 border-2 border-[#2a9d8f] rounded-lg px-3 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f]">
-      </div>
-
-      <!-- Contraseña -->
-      <div>
-        <label for="psw_usuario" class="block text-sm font-semibold text-[#003049] mb-1">Contraseña</label>
-        <input type="password" required id="psw_usuario" name="psw_usuario" placeholder="********"
-          class="w-full bg-gray-100 border-2 border-[#2a9d8f] rounded-lg px-3 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f]">
-
-      </div>
-
-      <!-- Restaurante -->
-      <div>
-        <label for="restaurante" class="block text-sm font-semibold text-[#003049] mb-1">Restaurante</label>
-        <input type="text" required id="restaurante" name="restaurante" placeholder="Ej. Juancho paisa"
-          class="w-full bg-gray-100 border-2 border-[#2a9d8f] rounded-lg px-3 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f]">
-      </div>
-
-
-      <!-- Botón enviar -->
-      <button type="submit"
-        class="w-full bg-[#2a9d8f] hover:bg-[#21867a] text-white font-semibold text-sm py-2 rounded-lg flex items-center justify-center gap-2">
-        <i class="bi bi-person-plus-fill"></i> Registrarse
-      </button>
-    </form>
-
-    <div class="text-center text-sm text-gray-600 mt-4">
-      ¿Ya tienes una cuenta?
-      <a th:href="@{/login}" class="text-[#2a9d8f] font-semibold hover:underline">Inicia sesión</a>
-    </div>
-  </div>
-</body>
-
+  </body>
 </html>

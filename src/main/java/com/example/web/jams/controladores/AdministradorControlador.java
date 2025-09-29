@@ -40,6 +40,8 @@ public class AdministradorControlador {
         return VIEW_PATH + "index";
     }
 
+    
+
     @GetMapping("/exportar-excel")
     public void exportarUsuarios(HttpServletResponse response) throws IOException {
         usuarioServicio.exportarExcel(response);

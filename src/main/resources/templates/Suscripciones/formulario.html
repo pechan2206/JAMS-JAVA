@@ -10,41 +10,47 @@
 
 <body class="bg-gray-100 font-sans">
   <div class="flex flex-col min-h-screen">
-
     <!-- Encabezado -->
     <header class="bg-white shadow px-6 py-4">
       <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-3xl font-bold text-gray-800">🧾 Crear nueva suscripción</h1>
-        <a th:href="@{/suscripciones}" class="text-sm text-[#2a9d8f] font-semibold hover:underline">Volver a Suscripciones</a>
+        <h1 class="text-3xl font-bold text-gray-800">
+          🧾 Crear nueva suscripción
+        </h1>
+        <a th:href="@{/suscripciones}" class="text-sm text-[#2a9d8f] font-semibold hover:underline">Volver a
+          Suscripciones</a>
       </div>
     </header>
 
     <!-- Formulario -->
     <main class="flex-grow px-6 py-8">
       <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow space-y-6">
-
         <!-- Párrafo explicativo -->
         <p class="text-sm text-gray-600 bg-green-50 p-4 rounded-lg border border-green-200">
-          💡 <strong>Nota:</strong> Aquí puedes crear planes o suscripciones que los clientes podrán adquirir. Asegúrate de establecer un nombre claro y un precio justo.
+          💡 <strong>Nota:</strong> Aquí puedes crear planes o suscripciones
+          que los clientes podrán adquirir. Asegúrate de establecer un nombre
+          claro y un precio justo.
         </p>
 
-        <form th:action="@{/suscripciones/guardarSuscripcion}" method="post" class="space-y-6 text-lg">
-
+        <form th:action="@{/suscripciones/guardarSuscripcion}" method="post" th:object="${suscripcion}"
+          class="space-y-6 text-lg">
           <!-- Descripción -->
           <div>
             <label for="descripcion" class="block font-semibold text-gray-700 mb-1">📌 Descripción</label>
-            <input type="text" id="descripcion" name="descripcion"
+            <input type="text" id="descripcion" name="descripcion" placeholder="Ej. Plan Básico Mensual"
+              th:field="*{descripcion}"
+              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]"
+              required />
 
-              placeholder="Ej. Plan Básico Mensual"
-              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]">
+            <p th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}" class="text-red-600 text-sm mt-1"></p>
           </div>
 
           <!-- Precio -->
           <div>
             <label for="precio" class="block font-semibold text-gray-700 mb-1">💰 Precio</label>
-            <input type="number" id="precio" name="precio"
-              placeholder="Ej. 25000"
-              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]">
+            <input type="number" id="precio" name="precio" placeholder="Ej. 25000" th:field="*{precio}"
+              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]" 
+              required/>
+            <p th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}" class="text-red-600 text-sm mt-1"></p>
           </div>
 
           <!-- Botón Crear -->
@@ -54,7 +60,6 @@
               ➕ Crear suscripción
             </button>
           </div>
-
         </form>
       </div>
     </main>
@@ -63,7 +68,7 @@
     <footer class="bg-white text-center py-4 text-gray-500 text-sm">
       &copy; 2025 My Cab. Todos los derechos reservados.
     </footer>
-
   </div>
 </body>
+
 </html>

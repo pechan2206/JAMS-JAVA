@@ -16,7 +16,8 @@ public class SuscripcionServicio {
     private final SuscripcionRepositorio suscripcionRepositorio;
     private final SuscripcionUsuarioRepositorio suscripcionUsuarioRepositorio;
 
-    public SuscripcionServicio(SuscripcionRepositorio suscripcionRepositorio, SuscripcionUsuarioRepositorio suscripcionUsuarioRepositorio) {
+    public SuscripcionServicio(SuscripcionRepositorio suscripcionRepositorio,
+                               SuscripcionUsuarioRepositorio suscripcionUsuarioRepositorio) {
         this.suscripcionRepositorio = suscripcionRepositorio;
         this.suscripcionUsuarioRepositorio = suscripcionUsuarioRepositorio;
     }
@@ -26,7 +27,8 @@ public class SuscripcionServicio {
     }
 
     public SuscripcionModelo buscarPorId(Long id) {
-        return suscripcionRepositorio.findById(id).orElseThrow(() -> new RuntimeException("No se encontro el id" + id));
+        return suscripcionRepositorio.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontró la suscripción con id " + id));
     }
 
     @Transactional
@@ -36,7 +38,7 @@ public class SuscripcionServicio {
 
     public SuscripcionModelo actualizar(Long id, SuscripcionModelo datos) {
         SuscripcionModelo existente = suscripcionRepositorio.findById(id)
-                .orElseThrow(() -> new RuntimeException("Suscripcion no encontrada"));
+                .orElseThrow(() -> new RuntimeException("Suscripción no encontrada"));
 
         existente.setDescripcion(datos.getDescripcion());
         existente.setPrecio(datos.getPrecio());
@@ -60,9 +62,17 @@ public class SuscripcionServicio {
         return suscripcionRepositorio.findAllDescripciones();
     }
 
-    public List<SuscripcionesPorUsuarioDTO> obtenerPorUsuario(Long idUsuario){
+    public List<SuscripcionesPorUsuarioDTO> obtenerPorUsuario(Long idUsuario) {
         return suscripcionUsuarioRepositorio.obtenerSuscripcionesPorUsuario(idUsuario);
     }
 
+    // ✅ Para validar duplicados (solo booleano)
+    public boolean existeDescripcion(String descripcion) {
+        return suscripcionRepositorio.existsByDescripcion(descripcion);
+    }
 
+    // ✅ Para obtener la suscripción completa
+    public SuscripcionModelo buscarPorDescripcion(String descripcion) {
+        return suscripcionRepositorio.findByDescripcion(descripcion).orElse(null);
+    }
 }

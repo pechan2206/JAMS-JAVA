@@ -1,6 +1,8 @@
 package com.example.web.jams.modelos;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,9 +21,12 @@ public class PqrModelo {
     @Column(name = "id_usuario")
     private String idUsuario;
 
+
+    @NotBlank(message = "El mensaje no puede estar vacio")
     @Column(name = "mensaje", nullable = false, length = 200)
     private String mensaje;
 
+    @NotBlank(message = "El asunto no puede estar vacio")
     @Column(name = "asunto", nullable = false)
     private String asunto;
 

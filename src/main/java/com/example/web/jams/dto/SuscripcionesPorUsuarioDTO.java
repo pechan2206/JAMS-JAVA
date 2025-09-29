@@ -1,13 +1,15 @@
 package com.example.web.jams.dto;
 
+import java.time.LocalDateTime;
+
 public interface SuscripcionesPorUsuarioDTO {
 
     String getDescripcion();
 
     Double getPrecio();
 
-    String getFechaModificacion();
+    LocalDateTime getFechaModificacion();
 
-    String getFechaCompra();
+    LocalDateTime getFechaCompra();
 
 }

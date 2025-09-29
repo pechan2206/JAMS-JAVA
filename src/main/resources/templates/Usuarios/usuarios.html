@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gestión de Usuarios</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 </head>
+
 <body class="bg-gray-100 font-sans">
+  <div id="alerta" th:if="${exito}"
+    class="fixed top-5 right-5 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg transition-opacity duration-500 opacity-100">
+    <span th:text="${exito}"></span>
+  </div>
+
   <!-- Contenedor principal -->
   <div class="flex flex-col min-h-screen">
-
     <!-- Encabezado -->
     <header class="bg-white shadow px-6 py-4">
       <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <a th:href="@{/administrador}"
+          class="bg-blue-600 text-white hover:bg-blue-700 font-semibold py-2 px-4 rounded-lg shadow">
+          Volver
+        </a>
         <h1 class="text-2xl font-bold text-gray-800">Gestión de Usuarios</h1>
-        <!--Editar el href-->
-        <a th:href='@{/administrador/exportar-excel}' class="bg-blue-600 text-white hover:bg-blue-700 font-semibold py-2 px-4 rounded-lg shadow">
+        <a th:href="@{/administrador/exportar-excel}"
+          class="bg-blue-600 text-white hover:bg-blue-700 font-semibold py-2 px-4 rounded-lg shadow">
           📥 Exportar Excel
         </a>
       </div>
@@ -25,7 +42,7 @@
     <main class="flex-grow px-6 py-8">
       <div class="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow">
         <div class="overflow-x-auto">
-          <table class="min-w-full table-auto border-collapse">
+          <table id="usuariosTabla" class="min-w-full table-auto border-collapse">
             <thead>
               <tr class="bg-blue-600 text-white text-sm uppercase">
                 <th class="px-4 py-2 text-center">ID Usuario</th>
@@ -38,26 +55,27 @@
               </tr>
             </thead>
             <tbody class="text-sm text-gray-700">
-              
-              <tr th:each = "usuario : ${usuarios}" class="even:bg-gray-100 hover:bg-blue-50">
-                <td th:text = "${usuario.idUsuario}" class="px-4 py-2 text-center"></td>
-                <td th:text = "${usuario.nombreUsuario}" class="px-4 py-2 text-center"></td>
-                <td th:text = "${usuario.correoUsuario}" class="px-4 py-2 text-center"></td>
-                <td th:text = "${usuario.telefonoUsuario}" class="px-4 py-2 text-center"></td>
-                <td th:text = "${usuario.restaurante}" class="px-4 py-2 text-center"></td>
-                <td th:text = "${usuario.fechaRegistro}" class="px-4 py-2 text-center"></td>
+              <tr th:each="usuario : ${usuarios}" class="even:bg-gray-100 hover:bg-blue-50">
+                <td th:text="${usuario.idUsuario}" class="px-4 py-2 text-center"></td>
+                <td th:text="${usuario.nombreUsuario}" class="px-4 py-2 text-center"></td>
+                <td th:text="${usuario.correoUsuario}" class="px-4 py-2 text-center"></td>
+                <td th:text="${usuario.telefonoUsuario}" class="px-4 py-2 text-center"></td>
+                <td th:text="${usuario.restaurante}" class="px-4 py-2 text-center"></td>
+                <td th:text="${usuario.fechaRegistro}" class="px-4 py-2 text-center"></td>
                 <td class="px-4 py-2 text-center">
                   <div class="flex justify-center gap-2">
-                    <a th:href="@{'/usuarios/editar/' + ${usuario.idUsuario}}" class="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded shadow text-xs">
+                    <a th:href="@{'/usuarios/editar/' + ${usuario.idUsuario}}"
+                      class="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded shadow text-xs">
                       ✏️ Modificar
                     </a>
-                    <a th:href="@{'/usuarios/eliminar/' + ${usuario.idUsuario}}" onclick="return confirm('¿Seguro que deseas eliminar este usuario?')" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded shadow text-xs">
+                    <a th:href="@{'/usuarios/eliminar/' + ${usuario.idUsuario}}"
+                      onclick="return confirm('¿Seguro que deseas eliminar este usuario?')"
+                      class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded shadow text-xs">
                       🗑️ Eliminar
                     </a>
                   </div>
                 </td>
               </tr>
-              
             </tbody>
           </table>
         </div>
@@ -68,7 +86,32 @@
     <footer class="bg-white text-center py-4 text-gray-500 text-sm">
       &copy; 2025 JAM. Todos los derechos reservados.
     </footer>
-
   </div>
+
+  <!-- Scripts -->
+  <script>
+    // Desaparece alerta
+    setTimeout(() => {
+      const alerta = document.getElementById('alerta');
+      if (alerta) alerta.classList.add('opacity-0');
+    }, 4000);
+
+    // Inicializar DataTables
+    $(document).ready(function () {
+      $('#usuariosTabla').DataTable({
+        paging: true,
+        pageLength: 10,
+        lengthChange: true,
+        searching: true,
+        ordering: true,
+        info: true,
+        autoWidth: false,
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+        }
+      });
+    });
+  </script>
 </body>
+
 </html>

@@ -3,6 +3,7 @@ package com.example.web.jams.repositorios;
 import com.example.web.jams.modelos.SuscripcionModelo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -35,4 +36,8 @@ public interface SuscripcionRepositorio extends JpaRepository<SuscripcionModelo,
     @Query("SELECT s.descripcion FROM SuscripcionModelo s")
     List<String> findAllDescripciones();
 
+    boolean existsByDescripcion(String descripcion);
+
+    Optional<SuscripcionModelo> findByDescripcion(String descripcion);
 }
+

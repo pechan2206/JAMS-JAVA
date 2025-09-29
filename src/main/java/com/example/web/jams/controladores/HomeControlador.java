@@ -35,17 +35,6 @@ public class HomeControlador {
         return "home";
     }
 
-    @PostMapping("/guardarUsuario")
-    public String guardarUsuario(@ModelAttribute UsuarioModelo usuario) {
-        usuarioServicio.guardarUsuario(usuario);
-        return "redirect:/";
-    }
-
-    @GetMapping("/formulario")
-    public String getMethodName(Model model) {
-        model.addAttribute("usuario", new UsuarioModelo());
-        return "formulario";
-    }
 
     @PostMapping("/guardarSolicitud")
     public String guardarSolicitud(@ModelAttribute SolicitudMensajeModelo solicitud) {

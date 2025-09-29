@@ -11,53 +11,77 @@
 <body class="bg-gray-100 font-sans">
   <!-- Contenedor principal -->
   <div class="flex flex-col min-h-screen">
-
     <!-- Encabezado -->
     <header class="bg-white shadow px-6 py-4">
       <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-3xl font-bold text-gray-800">📝 Registro de Nuevo Usuario</h1>
-        <a th:href="@{'/login'}" class="text-sm text-[#2a9d8f] font-semibold hover:underline">¿Ya tienes cuenta? Inicia sesión</a>
+        <h1 class="text-3xl font-bold text-gray-800">
+          📝 Registro de Nuevo Usuario
       </div>
     </header>
 
     <!-- Formulario -->
     <main class="flex-grow px-6 py-8">
-    
       <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow space-y-6">
-
         <!-- Párrafo explicativo -->
         <p class="text-sm text-gray-600 bg-blue-50 p-4 rounded-lg border border-blue-200">
-          🔒 <strong>Importante:</strong> Asegúrate de ingresar información válida y segura. Tu cuenta será usada para gestionar tus pedidos y acceso al sistema.
+          🔒 <strong>Importante:</strong> Asegúrate de ingresar información
+          válida y segura. Tu cuenta será usada para gestionar tus pedidos y
+          acceso al sistema.
         </p>
 
-        <form method="post" th:action="@{'/usuarios/guardar'}" class="space-y-6 text-lg">
-
+        <form method="post" th:action="@{'/usuarios/guardarUsuario'}" th:object="${usuario}" class="space-y-6 text-lg">
           <!-- Nombre usuario -->
           <div>
-            <label for="nombre_usuario" class="block font-semibold text-gray-700 mb-1">👤 Nombre de usuario</label>
-            <input type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Ej. Juan Pérez"
-              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]">
+            <label for="nombreUsuario" class="block font-semibold text-gray-700 mb-1">👤 Nombre de usuario</label>
+            <input type="text" id="nombreUsuario" th:field="*{nombreUsuario}" placeholder="Ej. Juan Pérez" required
+              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]" />
+            <p th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}" class="text-red-600"></p>
           </div>
 
           <!-- Teléfono -->
           <div>
-            <label for="telefono_usuario" class="block font-semibold text-gray-700 mb-1">📱 Teléfono</label>
-            <input type="text" id="telefono_usuario" name="telefono_usuario" placeholder="Ej. 3001234567"
-              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]">
+            <label for="telefonoUsuario" class="block font-semibold text-gray-700 mb-1">📱 Teléfono</label>
+            <input type="text" id="telefonoUsuario" th:field="*{telefonoUsuario}" placeholder="Ej. 3001234567" required
+              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]" />
+            <p th:if="${#fields.hasErrors('telefonoUsuario')}" th:errors="*{telefonoUsuario}" class="text-red-600"></p>
           </div>
 
           <!-- Correo electrónico -->
           <div>
-            <label for="correo_usuario" class="block font-semibold text-gray-700 mb-1">📧 Correo electrónico</label>
-            <input type="text" id="correo_usuario" name="correo_usuario"  placeholder="Ej. correo@ejemplo.com"
-              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]">
+            <label for="correoUsuario" class="block font-semibold text-gray-700 mb-1">📧 Correo electrónico</label>
+            <input type="email" id="correoUsuario" th:field="*{correoUsuario}" placeholder="Ej. correo@ejemplo.com"
+              required
+              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]" />
+            <p th:if="${#fields.hasErrors('correoUsuario')}" th:errors="*{correoUsuario}" class="text-red-600"></p>
           </div>
 
           <!-- Contraseña -->
           <div>
-            <label for="psw_usuario" class="block font-semibold text-gray-700 mb-1">🔑 Contraseña</label>
-            <input type="password" id="psw_usuario" name="psw_usuario" placeholder="********"
+            <label for="pswUsuario" class="block font-semibold text-gray-700 mb-1">🔑 Contraseña</label>
+            <input type="password" id="pswUsuario" th:field="*{pswUsuario}" placeholder="********" required
+              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]" />
+            <p th:if="${#fields.hasErrors('pswUsuario')}" th:errors="*{pswUsuario}" class="text-red-600"></p>
+          </div>
+
+          <!-- Restaurante (solo para empleado) -->
+          <div id="divRestaurante" class="hidden">
+            <label for="restaurante" class="block font-semibold text-gray-700 mb-1">🏢 Restaurante (obligatorio para
+              empleado)</label>
+            <input type="text" id="restaurante" th:field="*{restaurante}" placeholder="Ej. Mi Restaurante"
+              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]"
+              minlength="5" />
+            <p th:if="${#fields.hasErrors('restaurante')}" th:errors="*{restaurante}" class="text-red-600"></p>
+          </div>
+
+          <!-- Rol -->
+          <div>
+            <label for="rol" class="block font-semibold text-gray-700 mb-1">🛡 Rol</label>
+            <select id="rol" th:field="*{rol.idRol}" required
               class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-3 text-base focus:ring-2 focus:ring-[#2a9d8f]">
+              <option value="" disabled selected>Seleccione un rol</option>
+              <option value="1">Administrador</option>
+              <option value="2">Cliente</option>
+            </select>
           </div>
 
           <!-- Botón enviar -->
@@ -75,7 +99,27 @@
     <footer class="bg-white text-center py-4 text-gray-500 text-sm">
       &copy; 2025 My Cab. Todos los derechos reservados.
     </footer>
-
   </div>
+
+  <!-- Script dinámico -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const rolSelect = document.querySelector('#rol');
+      const divRestaurante = document.querySelector('#divRestaurante');
+      const restauranteInput = document.querySelector('#restaurante');
+
+      rolSelect.addEventListener('change', () => {
+        if (rolSelect.value === '2') { // Empleado
+          divRestaurante.classList.remove('hidden');
+          restauranteInput.required = true;
+        } else { // Administrador u otro
+          divRestaurante.classList.add('hidden');
+          restauranteInput.required = false;
+          restauranteInput.value = '';
+        }
+      });
+    });
+  </script>
 </body>
+
 </html>
