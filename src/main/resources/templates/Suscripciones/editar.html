@@ -34,6 +34,7 @@
         <!-- Formulario de edición -->
         <form th:action="@{/suscripciones/actualizar/{id}(id=${suscripcion.idSuscripcion})}" th:object="${suscripcion}"
           method="post" class="space-y-6 text-lg">
+          <input type="hidden" th:field="*{idSuscripcion}" />
           <!-- Descripción -->
           <div>
             <label for="descripcion" class="block font-semibold text-gray-700 mb-1">📃 Descripción</label>

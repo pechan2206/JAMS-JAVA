@@ -96,12 +96,15 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/actualizar/{id}")
-    public String actualizar(@PathVariable("id") Long id, @Valid @ModelAttribute("usuario") UsuarioModelo datos, Model model,
-            BindingResult result) {
+    public String actualizar(@PathVariable("id") Long id,
+            @Valid @ModelAttribute("usuario") UsuarioModelo datos,
+            BindingResult result, // Siempre inmediatamente después de @Valid
+            Model model) {
 
         validarDuplicadosActualizar(datos, result, id);
 
         if (result.hasErrors()) {
+            datos.setIdUsuario(id);
             model.addAttribute("usuario", datos);
             return VIEW_PATH + "editar";
         }

@@ -58,6 +58,7 @@ public class SuscripcionControlador {
         }
 
         if (result.hasErrors()) {
+            datos.setIdSuscripcion(datos.getIdSuscripcion());
             model.addAttribute("suscripcion", datos);
             return VIEW_PATH + "editar";
         }
