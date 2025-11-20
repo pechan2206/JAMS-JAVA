@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.web.jams.modelos.RolModelo;
 import com.example.web.jams.modelos.UsuarioModelo;
+import com.example.web.jams.servicios.CorreoServicio;
 import com.example.web.jams.servicios.UsuarioServicio;
 
 import jakarta.validation.Valid;
@@ -23,8 +24,10 @@ public class UsuarioControlador {
 
     public final UsuarioServicio usuarioServicio;
     private static final String VIEW_PATH = "Usuarios/";
+    private CorreoServicio correoServicio;
 
-    public UsuarioControlador(UsuarioServicio usuarioServicio) {
+    public UsuarioControlador(UsuarioServicio usuarioServicio, CorreoServicio correoServicio) {
+        this.correoServicio = correoServicio;
         this.usuarioServicio = usuarioServicio;
     }
 
@@ -159,6 +162,49 @@ public class UsuarioControlador {
     public String agregarUsuario(Model model) {
         model.addAttribute("usuario", new UsuarioModelo());
         return VIEW_PATH + "agregar";
+    }
+
+    // Metodos para enviar correos
+
+    @GetMapping("/enviar-correo/{id}")
+    public String enviarCorreo(@PathVariable("id") Long id) {
+        UsuarioModelo usuario = usuarioServicio.buscarPorId(id);
+        correoServicio.enviarCorreo(
+                usuario.getCorreoUsuario(),
+                "Notificación",
+                "Hola " + usuario.getNombreUsuario() + ", este es tu mensaje.");
+
+        return "redirect:/usuarios";
+    }
+
+    @GetMapping("/enviar-correos")
+    public String mostrarFormularioMasivo(Model model) {
+        model.addAttribute("asunto", "");
+        model.addAttribute("mensaje", "");
+        return "Usuarios/correos";
+    }
+
+    @PostMapping("/enviar-masivo")
+    public String enviarCorreosMasivos(
+            @ModelAttribute("asunto") String asunto,
+            @ModelAttribute("mensaje") String mensaje,
+            RedirectAttributes redirect) {
+
+        List<UsuarioModelo> usuarios = usuarioServicio.listarUsuarios();
+
+        for (UsuarioModelo u : usuarios) {
+            try {
+                correoServicio.enviarCorreo(
+                        u.getCorreoUsuario(),
+                        asunto,
+                        "Hola " + u.getNombreUsuario() + ",\n\n" + mensaje);
+            } catch (Exception e) {
+                System.out.println("Error enviando a " + u.getCorreoUsuario());
+            }
+        }
+
+        redirect.addFlashAttribute("exito", "Correos enviados correctamente.");
+        return "redirect:/usuarios";
     }
 
 }

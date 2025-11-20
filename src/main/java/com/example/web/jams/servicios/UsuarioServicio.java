@@ -28,6 +28,7 @@ public class UsuarioServicio implements UserDetailsService {
     private final UsuarioRepositorio usuarioRepositorio;
     private final SuscripcionUsuarioRepositorio suscripcionUsuarioRepositorio;
     private final PasswordEncoder passwordEncoder;
+    
 
     public UsuarioServicio(UsuarioRepositorio usuarioRepositorio,
             SuscripcionUsuarioRepositorio suscripcionUsuarioRepositorio,
